@@ -1,0 +1,16 @@
+{
+    "qq": 3630028859,
+    "platform": 3,
+    "password": "",
+    "sign_api_addr": "http://sign.xn--6kr82g47sttf.com/",
+    "ghp": "",
+    "use_guild": false,
+    "components": ["bank","custom_hitokoto","dashboard","hitokoto","init","money","signin","video"],
+    "admin": [],
+    "user": [],
+    "ccgroup": 0,
+    "broadcast_group": [],
+    "five_mins_average_load_limit": 0.6,
+    "performance_work_group": 114514,
+    "debug_mode": true
+}
