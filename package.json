@@ -1,13 +1,13 @@
 {
-  "name": "clipcc-man",
-  "version": "1.0.0",
+  "name": "kawairikabot",
+  "version": "4.6.0",
   "main": "index.js",
   "scripts": {
     "start": "bash daemon.sh",
     "once": "node index.js"
   },
-  "repository": "https://github.com/Clipteam/clipcc-man",
-  "author": "SinanGentoo",
+  "repository": "https://github.com/mizuhara37/KawaiRikaBot",
+  "author": "Mizuhara37",
   "license": "MIT",
   "dependencies": {
     "@octokit/rest": "^19.0.3",
@@ -18,7 +18,7 @@
     "dayjs": "^1.10.7",
     "delayed-stream": "^1.0.0",
     "form-data": "^4.0.0",
-    "icqq": "^0.4.10",
+    "icqq": "^0.4.11",
     "mime-db": "^1.52.0",
     "mime-types": "^2.1.35",
     "node-localstorage": "^2.2.1",
