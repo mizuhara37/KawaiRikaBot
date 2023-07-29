@@ -9,6 +9,8 @@ const day = parseInt(dayjs().format('DD'));
 const month = parseInt(dayjs().format('MM'));
 const banks = new LocalStorage("./usrdata/bank");
 const syssto = new LocalStorage("./appdata");
+const jesus = new LocalStorage("./usrdata/jesus");
+const music = new LocalStorage("./usrdata/music");
 var lucky;
 
 class signin {
@@ -29,6 +31,7 @@ class signin {
             storage.setItem('min',200);
             storage.setItem("maxuser","");
             storage.setItem("minuser","");
+            jesus.setItem("refresh",1);
         }
     }
     
@@ -52,9 +55,9 @@ class signin {
     }
     
     async onGroupMessage (session) {
-        // console.log(session.user_id); Class Group 661222218   Test Group 748571332 Work Group  621989020
+        // console.log(session.user_id); Class Group yourgroup   Test Group yourtestgroup Work Group  621989020
         this.refresh(session.group_id);
-        if ((session.raw_message === '签到' || session.raw_message==='gura signin') && (session.group_id === 661222218 || session.group_id === 748571332)) 
+        if ((session.raw_message === '签到' || session.raw_message==='gura signin') && (session.group_id === yourgroup)) 
         {
             var id=session.user_id;
             var jrrp;
@@ -75,7 +78,7 @@ class signin {
                 banks.setItem('list', JSON.stringify(list2));
 
                 x=r;
-
+                
                 
             }
             else x=list[id];
@@ -207,9 +210,16 @@ class signin {
             context.fillStyle = 'white'
             context.textAlign = 'left'
             context.font = 'bold 35pt Microsoft Yahei'
+            if(session.nickname==jesus.getItem("name"))
+            {
+                context.fillText('今日人品：你的人品由你自己决定',1025,250);
+            }
+            else
+            {
+            
             if(xqj==4) context.fillText('今天v你：'+x*2,1025,250)
             else context.fillText('今日人品：'+x,1025,250)
-            
+            }
 
             var col,text;
                 if(x>=0 && x<=49) col='grey';
@@ -230,9 +240,29 @@ class signin {
                 else if(x>60 && x<=75) text="19.9的两份鸡肉卷";
                 else if(x>75) text="19.9的两份香辣鸡腿堡";
                 }
+
+            let use=music.getItem("using");
+            use = JSON.parse(use);
+            var path="";
+            if(use[session.user_id]!=null)
+            {
+                var text,t;
+                t=text;
+                if(x>=0 && x<=25) text="5";
+                else if(x>25 && x<50) text="4";
+                else  if(x>=50 &&x<=60) text="3";
+                else if(x>60 && x<=75) text="2";
+                else if(x>75) text="1";
+                path="/appdata/musicbox/"+use[session.user_id]+"/"+text+".mp3";
+                text=t;
+                // session.reply(path);
+            }
+
+
             context.fillStyle = col
             context.textAlign = 'left'
             context.font = 'bold 35pt Microsoft Yahei'
+            if(session.nickname!=jesus.getItem("name"))
             context.fillText(text,1425,250)
             
             if(xqj==4) context.fillStyle = 'yellow'
@@ -259,7 +289,7 @@ class signin {
             var json = httpRequest.responseText;
             const obj = JSON.parse(json);
             var saying=obj.tts;
-            context.fillStyle = 'white'
+            context.fillStyle = 'pink'
             context.textAlign = 'left'
             context.font = 'bold 35pt Microsoft Yahei'
             var i;
@@ -270,6 +300,7 @@ class signin {
                 if((i)%27==0) said=said+saying[i]+'\n';
                 else said=said+saying[i];
             }
+            said="今日耶稣:"+jesus.getItem("name");
             context.fillText(said,1025,460)
             let list = syssto.getItem('tip');
                  if (!list) syssto.setItem('tip', '{}');
@@ -277,111 +308,28 @@ class signin {
                  var x = 0,y = list.sentence.length-1;
                  var r=Math.round(Math.random()*(y-x)+x);
                  context.textAlign = 'center'
-            context.fillText("TIP:"+list.sentence[r],1195,860)
-            const buffer = canvas.toBuffer('image/png')
-              fs.writeFileSync('./usrdata/temp/signin.png', buffer)
-              const { segment } = require("icqq")
-                    const me = [
-                        segment.image("./usrdata/temp/signin.png"),
-                    ]
-                    session.reply(me);
-                    
-            
-            }
-            }
-        }
-        else if ((session.raw_message === '签退' || session.raw_message==='gura signout') && (session.group_id === 661222218 || session.group_id === 748571332)) 
-        {
-            var id=session.user_id;
-            
-            const width = 2390
-            const height = 920
-            const fs = require('fs')
-            const { createCanvas, loadImage } = require('canvas')
-            const canvas = createCanvas(width, height)
-            const context = canvas.getContext('2d')
-            var xqj=dayjs().day();
-            var x=-1000;
-            var h=dayjs().hour();
-            var txt;
-            
-                txt="你不行,看我行";//background-image:linear-gradient(0deg,#fddb92 0%, #d1fdff 100%)
-                var linearGradient= context.createLinearGradient(0,0,width,height);
-            linearGradient.addColorStop(0,"black")
-            linearGradient.addColorStop(1,"black")
-            //添加渐变颜色
-            context.fillStyle=linearGradient;
-            context.fillRect(0,0,width,height)
-           
-            
-            
-            context.font = 'bold 30pt Microsoft Yahei'
-            context.textAlign = 'center'
-            context.textBaseline = 'top'
-            // context.fillStyle = "whit"
-            // context.rotate(20*Math.PI/180);
-            
-            
-            context.fillStyle = 'white'
-           context.font = 'bold 95pt Microsoft Yahei'
-            context.fillText(txt,485,300)
-            
-            context.fillStyle = 'white'
-            context.textAlign = 'left'
-            context.font = 'bold 35pt Microsoft Yahei'
-            context.fillText(session.nickname,125,250)
-            
-            context.fillStyle = 'white'
-            context.textAlign = 'left'
-            context.font = 'bold 35pt Microsoft Yahei'
-           context.fillText('今日人品：'+x,1025,250)
-            
-
-            var col,text="你不行!";
-                col="pink";
-            
-            context.fillStyle = col
-            context.textAlign = 'left'
-            context.font = 'bold 35pt Microsoft Yahei'
-            context.fillText(text,1425,250)
-           context.fillStyle = 'red'
-            context.textAlign = 'left'
-            context.font = 'bold 35pt Microsoft Yahei'
-           context.fillText('今日人品最佳 '+storage.getItem("maxuser")+"："+storage.getItem("max"),1025,320)
-           context.fillStyle = 'grey'
-            context.textAlign = 'left'
-            context.font = 'bold 35pt Microsoft Yahei'
-           context.fillText('今日人品最差 '+storage.getItem("minuser")+"："+storage.getItem("min"),1025,390)
-            
-            
-            var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
-            var httpRequest = new XMLHttpRequest();//第一步：建立所需的对象
-            httpRequest.open('GET', 'http://timor.tech/api/holiday/tts', true);//第二步：打开连接  将请求参数写在url中  ps:"http://localhost:8080/rest/xxx"
-            httpRequest.send();
-            httpRequest.onreadystatechange = function () {
-            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-            var json = httpRequest.responseText;
-            const obj = JSON.parse(json);
-            var saying=obj.tts;
-            context.fillStyle = 'white'
-            context.textAlign = 'left'
-            context.font = 'bold 35pt Microsoft Yahei'
-            var i;
-            var said=saying[0];
-            var len=saying.length;
-            for(i=1;i<len;i++)
+            var dj;
+            if(use[session.user_id]!=null)
             {
-                if((i)%27==0) said=said+saying[i]+'\n';
-                else said=said+saying[i];
+                var choose=use[session.user_id];
+                var mname;
+                if(choose==1) mname="花脸-完美世界";
+                else if(choose==2) mname="终极-Denzel Curry";
+                else if(choose==3) mname="有为青年-Blitz Kids";
+                else if(choose==4) mname="迈阿密热线-Hotline Miami";
+                else if(choose==5) mname="海绵手指";
+                else if(choose==6) mname="相信自己";
+                else if(choose==7) mname="植物大战僵尸";
+                else if(choose==8) mname="欢乐斗地主-Tencent";
+                else if(choose==9) mname="IMPACT-USAO/光吉猛修";
+                else if(choose==10) mname="怪物-YOASOBI";
+                else if(choose==11) mname="猪猪侠";
+                context.fillText("正在使用的音乐盒："+mname,1195,860)
+                dj="正在使用的音乐盒："+mname;
             }
-            context.fillText(said,1025,460)
-            let list = syssto.getItem('tip');
-            if (!list) syssto.setItem('tip', '{}');
-            list = JSON.parse(list);
-            var x = 0,y = list.sentence.length-1;
-            var r=Math.round(Math.random()*(y-x)+x);
-            context.textAlign = 'center'
-       context.fillText("TIP:"+list.sentence[r],1195,860)
+            else
+            context.fillText("TIP:"+list.sentence[r],1195,860)
+
             const buffer = canvas.toBuffer('image/png')
               fs.writeFileSync('./usrdata/temp/signin.png', buffer)
               const { segment } = require("icqq")
@@ -389,8 +337,29 @@ class signin {
                         segment.image("./usrdata/temp/signin.png"),
                     ]
                     session.reply(me);
-                    
-            
+                    const music = [
+                        segment.record(path),
+                    ]
+                    if(use[session.user_id]!=null)
+            {
+                    session.reply(music);
+            }
+                    if(syssto.getItem("ban")==1)
+                    {
+                       const { segment } = require("icqq")
+                     
+                       const me = [
+                           segment.share("http://47.113.194.233:24/signin.png","签到成功，点击查看","http://47.113.194.233:24/signin.png","[机器人消息]"),
+                       ]
+                       session.reply(me);
+                       if(use[session.user_id]!=null)
+                        {
+                            const ame = [
+                                segment.share("example.com",dj,"http://47.113.194.233:24/musicbox_cover/"+use[session.user_id]+"webp","[机器人消息]"),
+                            ]
+                             session.reply(ame);
+                        }
+                    }
             }
             }
         }

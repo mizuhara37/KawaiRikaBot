@@ -31,12 +31,12 @@ attempt (id,named) {
        logger.info('初始化组件加载成功！');
        var ver=dayjs().year().toString()+dayjs().month().toString()+dayjs().date().toString()+dayjs().hour().toString()+dayjs().minute().toString()+dayjs().second().toString();
        
-       this.client.sendGroupMsg(748571332,"Rika启动！！！")
+       this.client.sendGroupMsg(yourtestgroup,"Rika启动！！！")
        syssto.setItem("ver",ver);
     }
     async onGroupMessage (session)
     {
-        if(session.group_id==661222218 || session.group_id === 748571332)
+        if(session.group_id==yourgroup || session.group_id === yourtestgroup)
         {
                //查询有了吗
                // console.log(session.nickname);

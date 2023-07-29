@@ -4,6 +4,7 @@ const LocalStorage = require('node-localstorage').LocalStorage;
 var txt,uplen=0;
 var up = new Array;
 var maker = new Array;
+let t;
 const syssto = new LocalStorage("./appdata");
 class DashBoard
 {
@@ -16,7 +17,7 @@ class DashBoard
     }
     async onGroupMessage (session)
     {
-        if(session.group_id=='748571332')
+        if(session.group_id=='yourtestgroup')
         {
             var say=session.raw_message.trim().split(/\s+/);
             if(session.raw_message=="gura dashboard=>member record")
@@ -44,6 +45,35 @@ class DashBoard
                     sentence=sentence+s[i]+' , ';
                   sentence=sentence+s[len-1];
                   session.reply(sentence);       
+            }
+            else
+            if(session.raw_message=="冻结模式")
+            {
+                 const { segment } = require("icqq")
+                    const me = [
+                        segment.share("example.com","已开启冻结模式"),
+                    ]
+                    session.reply(me);
+                syssto.setItem("ban",1);
+            }
+            else
+            if(session.raw_message=="关闭冻结模式")
+            {
+                 const { segment } = require("icqq")
+                    const me = [
+                        segment.share("example.com","已关闭冻结模式"),
+                    ]
+                    session.reply(me);
+                syssto.setItem("ban",0);
+            }
+            else if(say[0]=="商店页面")
+            {
+                let img=t.find(v=>v.type=='image');
+                if(img!=null)
+                {
+                    syssto.setItem("store",img.url)
+                }
+                else session.reply("上条消息不含图片");
             }
             else if(say[0]=="更新")
             {
@@ -105,7 +135,7 @@ class DashBoard
                   session.reply(me);
                   if(say[1]=="发布"){
                     
-                    this.client.sendGroupMsg(661222218,me);
+                    this.client.sendGroupMsg(yourgroup,me);
                 }
             }
             if(say[0]=="添加tip")
@@ -119,11 +149,12 @@ class DashBoard
                  
                  session.reply("添加成功！");
                  syssto.setItem("tip",JSON.stringify(list));
-                //  this.client.sendGroupMsg(748571332,username+"上传了一言，请审核");
+                //  this.client.sendGroupMsg(yourtestgroup,username+"上传了一言，请审核");
             }
+            t=session.message;
         }
      
-       
+      
     }
 }
 module.exports = DashBoard;

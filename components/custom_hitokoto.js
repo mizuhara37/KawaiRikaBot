@@ -42,7 +42,7 @@ class exam
     }
     async onGroupMessage (session)
     {
-      if(session.group_id === 661222218 || session.group_id === 748571332)
+      if(session.group_id === yourgroup || session.group_id === yourtestgroup)
       {
          var say=session.raw_message.trim().split(/\s+/);
           if(say[0]=="自定义一言")
@@ -143,7 +143,7 @@ class exam
           
           
          } 
-         if(session.group_id==748571332)
+         if(session.group_id==yourtestgroup)
          {var say=session.raw_message.trim().split(/\s+/);
          if(say[0]=="审核一言列表")
           {
@@ -207,8 +207,8 @@ class exam
                
             // }
             // console.log(y+" "+id);
-            // this.client.sendTempMsg(661222218,3103819396,"hhh");
-            this.client.sendTempMsg(661222218,id,"恭喜你，"+session.nickname+"通过了您的一言:"+'"'+sent+'"');
+            // this.client.sendTempMsg(yourgroup,3103819396,"hhh");
+            this.client.sendTempMsg(yourgroup,id,"恭喜你，"+session.nickname+"通过了您的一言:"+'"'+sent+'"');
                session.reply("添加成功！该一言编号:"+(ad.sentence.length-1));
           }
           else if(say[0]=="审核不通过")
@@ -246,8 +246,8 @@ class exam
             // // sendPrivateMsg
            
             // console.log(y+" "+id);
-            // this.client.sendTempMsg(661222218,3103819396,"hhh");
-            this.client.sendTempMsg(661222218,id,"抱歉，"+session.nickname+"没有通过您的一言:"+'"'+sent+'"');
+            // this.client.sendTempMsg(yourgroup,3103819396,"hhh");
+            this.client.sendTempMsg(yourgroup,id,"抱歉，"+session.nickname+"没有通过您的一言:"+'"'+sent+'"');
             session.reply("Success！");
           }
           else if(say[0]=="一言详情")
@@ -282,7 +282,7 @@ class exam
                list.qid[list.qid.length]=session.user_id;
                session.reply("添加成功！请等待管理员审核");
                syssto.setItem("temphitokoto",JSON.stringify(list))
-               this.client.sendGroupMsg(748571332,username+"上传了一言，请审核");
+               this.client.sendGroupMsg(yourtestgroup,username+"上传了一言，请审核");
           }
    }
 }

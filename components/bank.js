@@ -13,7 +13,7 @@ class bank
     }
     async onGroupMessage (session)
     {
-        if((session.group_id === 661222218 || session.group_id === 748571332))
+        if((session.group_id === yourgroup || session.group_id === yourtestgroup))
         {
             var say=session.raw_message.trim().split(/\s+/);
           if(session.raw_message=="银行")

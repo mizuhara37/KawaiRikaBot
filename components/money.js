@@ -13,7 +13,7 @@ class money
     }
     async onGroupMessage (session)
     {
-       if(session.group_id==748571332 || 661222218)
+       if(session.group_id==yourtestgroup || yourgroup)
        {
           var say=session.raw_message.trim().split(/\s+/);
           if(say[0]=="转账")

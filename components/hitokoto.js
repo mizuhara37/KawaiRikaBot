@@ -14,7 +14,7 @@ class Hitokoto
     }
     async onGroupMessage (session)
     {
-        if((session.group_id === 661222218 || session.group_id === 748571332))
+        if((session.group_id === yourgroup || session.group_id === yourtestgroup))
         {
             if ((session.raw_message === '一言' || session.raw_message === 'gura hitokoto'|| session.raw_message === '废话'|| session.raw_message === '道理'|| session.raw_message === '金句')) 
             {
@@ -102,6 +102,15 @@ class Hitokoto
                               segment.image("./usrdata/temp/hitokoto.png"),
                           ]
                           session.reply(me);
+                          if(syssto.getItem("ban")==1)
+                    {
+                       const { segment } = require("icqq")
+                     
+                       const me = [
+                           segment.share("http://47.113.194.233:24/hitokoto.png","一言生成成功，点击查看","http://47.113.194.233:24/hitokoto.png","被冻结时的绝唱"),
+                       ]
+                       session.reply(me);
+                    }
                           })
                   }
               };
@@ -193,6 +202,15 @@ class Hitokoto
                           segment.image("./usrdata/temp/hitokoto.png"),
                       ]
                       session.reply(me);
+                      if(syssto.getItem("ban")==1)
+                    {
+                       const { segment } = require("icqq")
+                     
+                       const me = [
+                           segment.share("http://47.113.194.233:24/hitokoto.png","一言生成成功，点击查看","http://47.113.194.233:24/hitokoto.png","被冻结时的绝唱"),
+                       ]
+                       session.reply(me);
+                    }
                       })
               
             
