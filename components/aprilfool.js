@@ -19,6 +19,16 @@ class aprilfool
             if(r==1) session.reply("谁问你了");
             else session.reply("Who asked you");
         }
+        else if(session.raw_message=="笑话")
+        {
+            var x = 1,y = 17;
+            var r=Math.round(Math.random()*(y-x)+x);
+            const { segment } = require("icqq")
+                  const me = [
+                    segment.record("/appdata/joke/"+r+".silk"),
+                  ]
+            session.reply(me);
+        }
     }
 }
 module.exports = aprilfool;
